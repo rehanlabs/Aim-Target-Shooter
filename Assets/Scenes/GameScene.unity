@@ -381,37 +381,6 @@ MonoBehaviour:
   startPanel: {fileID: 591236175}
   hudPanel: {fileID: 965347410}
   gameOverPanel: {fileID: 1434829367}
---- !u!1 &426463229
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 426463230}
-  m_Layer: 0
-  m_Name: SpawnPoint (3)
-  m_TagString: Target
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &426463230
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 426463229}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 8.5, z: 0.5}
-  m_LocalScale: {x: 1.7500001, y: 1.7500001, z: 0.35}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 570563380}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &431072457
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,8 +756,6 @@ Transform:
   m_Children:
   - {fileID: 1217238290}
   - {fileID: 1402983991}
-  - {fileID: 426463230}
-  - {fileID: 1166182080}
   - {fileID: 808383835}
   - {fileID: 2011939059}
   - {fileID: 755616629}
@@ -812,8 +779,6 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 1217238290}
   - {fileID: 1402983991}
-  - {fileID: 426463230}
-  - {fileID: 1166182080}
   - {fileID: 808383835}
   - {fileID: 2011939059}
   - {fileID: 755616629}
@@ -1607,6 +1572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileSpeed: 50
   spawnDistance: 4.5
+  muzzleFlashPrefab: {fileID: 3230120141126872839, guid: aa6ee8c1898fbde4981733b595054fb1, type: 3}
   crosshair: {fileID: 1986755426}
 --- !u!1 &965347410
 GameObject:
@@ -1858,37 +1824,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1115485644}
   m_CullTransparentMesh: 1
---- !u!1 &1166182079
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1166182080}
-  m_Layer: 0
-  m_Name: SpawnPoint (4)
-  m_TagString: Target
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1166182080
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166182079}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5, y: 8.5, z: 0.5}
-  m_LocalScale: {x: 1.7500001, y: 1.7500001, z: 0.35}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 570563380}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1217238289
 GameObject:
   m_ObjectHideFlags: 0
@@ -1930,6 +1865,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1236252626}
   - component: {fileID: 1236252625}
+  - component: {fileID: 1236252627}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1965,6 +1901,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1236252627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236252624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec10c448b2666a49b85523c6d9ccd99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicVolume: 1
+  sfxVolume: 1
+  musicSounds: []
+  sfxSounds:
+  - name: shoot
+    clip: {fileID: 8300000, guid: 91ae95fef28bcdc4690ebde58d3241c5, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: kill
+    clip: {fileID: 8300000, guid: ccfec7713a05b3647a1f87224c865751, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: special
+    clip: {fileID: 8300000, guid: 941aa1edd0ee1b84e86d5b6750b1e8ca, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!1 &1402983990
 GameObject:
   m_ObjectHideFlags: 0

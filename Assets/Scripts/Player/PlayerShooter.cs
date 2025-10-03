@@ -4,11 +4,14 @@ using UnityEngine.UI;
 public class PlayerShooter : MonoBehaviour
 {
     [Header("Projectile")]
-    public float projectileSpeed = 50f;   // bullet speed
-    public float spawnDistance = 4.5f;    // spawn distance from camera
+    public float projectileSpeed = 50f;   
+    public float spawnDistance = 4.5f;    
+
+    [Header("Effects")]
+    public ParticleSystem muzzleFlashPrefab; // assign in inspector
 
     [Header("UI")]
-    public Image crosshair; // just for crosshair following mouse/touch
+    public Image crosshair; 
 
     private Camera cam;
 
@@ -20,7 +23,6 @@ public class PlayerShooter : MonoBehaviour
 
     void Update()
     {
-        // Move crosshair to input position
         if (crosshair != null)
             crosshair.transform.position = Input.mousePosition;
 
@@ -39,7 +41,7 @@ public class PlayerShooter : MonoBehaviour
                         Input.mousePosition.y,
                         cam.nearClipPlane + spawnDistance));
 
-        // Get bullet from pool
+        // Spawn bullet
         GameObject projectileGO = BulletPool.Instance.GetBullet();
         projectileGO.transform.position = spawnPoint;
         projectileGO.transform.rotation = Quaternion.identity;
@@ -48,6 +50,15 @@ public class PlayerShooter : MonoBehaviour
         // Launch projectile
         Projectile projectile = projectileGO.GetComponent<Projectile>();
         projectile.Launch(ray.direction, projectileSpeed);
+
+        // Play muzzle flash
+        if (muzzleFlashPrefab != null)
+        {
+            ParticleSystem flash = Instantiate(muzzleFlashPrefab, spawnPoint, Quaternion.identity);
+            flash.transform.forward = ray.direction; // orient it with shot direction
+            flash.Play();
+            Destroy(flash.gameObject, flash.main.duration);
+        }
 
         // Decrease ammo
         GameManager.Instance.UseAmmo();

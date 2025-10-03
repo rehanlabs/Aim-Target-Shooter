@@ -22,11 +22,6 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
-    {
-        Time.timeScale = 0f;
-    }
-
     // ---------------- GAME FLOW ----------------
     public void StartGame()
     {
@@ -34,8 +29,6 @@ public class GameManager : MonoBehaviour
         killCount = 0;
         isGameOver = false;
         isGameStarted = true;
-
-        Time.timeScale = 1f;
 
         GameEvents.OnAmmoChanged?.Invoke(ammo);
         GameEvents.OnKillCountChanged?.Invoke(killCount);
@@ -49,7 +42,6 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         isGameStarted = false;
 
-        Time.timeScale = 0f;
 
         GameEvents.OnGameOver?.Invoke();
 
@@ -66,6 +58,7 @@ public class GameManager : MonoBehaviour
 
     public void UseAmmo()
     {
+        AudioManager.Instance.PlaySFX("shoot");
         if (ammo <= 0 || isGameOver) return;
 
         ammo--;
@@ -81,6 +74,7 @@ public class GameManager : MonoBehaviour
 
         ammo += amount;
         GameEvents.OnAmmoChanged?.Invoke(ammo);
+        AudioManager.Instance.PlaySFX("special");
     }
 
     public int GetAmmo() => ammo;
@@ -92,6 +86,8 @@ public class GameManager : MonoBehaviour
 
         killCount++;
         GameEvents.OnKillCountChanged?.Invoke(killCount);
+
+        AudioManager.Instance.PlaySFX("kill");
     }
 
     public int GetKillCount() => killCount;

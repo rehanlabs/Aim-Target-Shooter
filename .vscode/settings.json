@@ -52,5 +52,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Unity-Aim-Project.sln"
+    "dotnet.defaultSolution": "Aim-Target-Shooter.sln"
 }

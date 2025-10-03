@@ -25,7 +25,7 @@ public class SpecialTarget : TargetBase
         if (!isActive) return;
 
         GameManager.Instance.AddKill();
-        GameManager.Instance.AddAmmo(2); // reward ammo
+        GameManager.Instance.AddAmmo(3); // reward ammo
         OnDespawn();
     }
 }
