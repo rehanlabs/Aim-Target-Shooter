@@ -37,15 +37,23 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Started!");
     }
 
-    private void GameOver()
+    public void ForceGameOver()
     {
+        if (isGameOver) return;
         isGameOver = true;
         isGameStarted = false;
-
 
         GameEvents.OnGameOver?.Invoke();
 
         Debug.Log("Game Over!");
+    }
+
+    public void CheckGameOverCondition()
+    {
+        if (ammo <= 0 && BulletPool.Instance.ActiveBulletsCount == 0)
+        {
+            ForceGameOver();
+        }
     }
 
     // ---------------- STATE ----------------
@@ -54,7 +62,6 @@ public class GameManager : MonoBehaviour
     public bool IsGameActive() => isGameStarted && !isGameOver;
 
     // ---------------- AMMO ----------------
-    public bool HasAmmo() => ammo > 0;
 
     public void UseAmmo()
     {
@@ -63,10 +70,9 @@ public class GameManager : MonoBehaviour
 
         ammo--;
         GameEvents.OnAmmoChanged?.Invoke(ammo);
-
-        if (ammo <= 0)
-            GameOver();
     }
+
+    public bool HasAmmo() => ammo > 0;
 
     public void AddAmmo(int amount)
     {

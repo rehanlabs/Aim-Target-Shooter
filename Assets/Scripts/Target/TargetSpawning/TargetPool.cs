@@ -27,7 +27,8 @@ public class TargetPool : MonoBehaviour
 
             for (int i = 0; i < config.size; i++)
             {
-                var obj = Instantiate(config.prefab);
+                // Instantiate and parent to this pool GameObject
+                var obj = Instantiate(config.prefab, transform);
                 obj.SetActive(false);
                 poolDict[config.key].Add(obj);
             }
@@ -47,7 +48,7 @@ public class TargetPool : MonoBehaviour
         var config = pools.Find(p => p.key == key);
         if (config != null)
         {
-            var obj = Instantiate(config.prefab);
+            var obj = Instantiate(config.prefab, transform);
             obj.SetActive(false);
             poolDict[key].Add(obj);
             return obj;

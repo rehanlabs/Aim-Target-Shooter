@@ -4,14 +4,14 @@ using UnityEngine.UI;
 public class PlayerShooter : MonoBehaviour
 {
     [Header("Projectile")]
-    public float projectileSpeed = 50f;   
-    public float spawnDistance = 4.5f;    
+    public float projectileSpeed = 50f;
+    public float spawnDistance = 4.5f;
 
     [Header("Effects")]
-    public ParticleSystem muzzleFlashPrefab; // assign in inspector
+    public ParticleSystem muzzleFlashPrefab;
 
     [Header("UI")]
-    public Image crosshair; 
+    public Image crosshair;
 
     private Camera cam;
 
@@ -23,25 +23,32 @@ public class PlayerShooter : MonoBehaviour
 
     void Update()
     {
-        if (crosshair != null)
-            crosshair.transform.position = Input.mousePosition;
+        if (!GameManager.Instance.IsGameActive())
+            return;
+            
+        var input = InputHandler.Instance;
 
-        if (Input.GetMouseButtonDown(0) && GameManager.Instance.HasAmmo())
+        // Move crosshair if valid input position
+        if (crosshair != null && input.HasValidPosition())
+            crosshair.transform.position = input.ScreenPosition;
+
+        // Shooting
+        if (input.IsPressedDown && GameManager.Instance.HasAmmo())
         {
-            Shoot();
+            Shoot(input.ScreenPosition);
         }
     }
 
-    void Shoot()
+    void Shoot(Vector3 screenPos)
     {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = cam.ScreenPointToRay(screenPos);
 
         Vector3 spawnPoint = cam.ScreenToWorldPoint(
-            new Vector3(Input.mousePosition.x,
-                        Input.mousePosition.y,
+            new Vector3(screenPos.x,
+                        screenPos.y,
                         cam.nearClipPlane + spawnDistance));
 
-        // Spawn bullet
+        // Get bullet from pool
         GameObject projectileGO = BulletPool.Instance.GetBullet();
         projectileGO.transform.position = spawnPoint;
         projectileGO.transform.rotation = Quaternion.identity;
@@ -55,7 +62,7 @@ public class PlayerShooter : MonoBehaviour
         if (muzzleFlashPrefab != null)
         {
             ParticleSystem flash = Instantiate(muzzleFlashPrefab, spawnPoint, Quaternion.identity);
-            flash.transform.forward = ray.direction; // orient it with shot direction
+            flash.transform.forward = ray.direction;
             flash.Play();
             Destroy(flash.gameObject, flash.main.duration);
         }

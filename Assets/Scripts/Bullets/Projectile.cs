@@ -14,6 +14,8 @@ public class Projectile : MonoBehaviour
 
     public void Launch(Vector3 direction, float speed)
     {
+        if (!GameManager.Instance.IsGameActive()) return;
+        
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
 
@@ -27,6 +29,9 @@ public class Projectile : MonoBehaviour
     void Deactivate()
     {
         gameObject.SetActive(false);
+
+        // Notify pool we’re done
+        BulletPool.Instance.NotifyBulletDeactivated();
     }
 
     private void OnCollisionEnter(Collision other)
@@ -34,7 +39,8 @@ public class Projectile : MonoBehaviour
         ITarget target = other.gameObject.GetComponent<ITarget>();
         if (target != null)
         {
-            target.OnHit(); // delegate kill/ammo/despawn to target
+            // hit target
+            target.OnHit();
         }
 
         Deactivate();

@@ -122,3 +122,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 1
+  hitEffectPrefab: {fileID: 3486591645142104157, guid: bc752c65fce1e89439cd872cae79b3d5, type: 3}
