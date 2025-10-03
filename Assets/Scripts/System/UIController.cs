@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -58,5 +59,8 @@ public class UIController : MonoBehaviour
 
     // -------- Button Hooks --------
     public void OnStartButton() => GameManager.Instance.StartGame();
-    public void OnRestartButton() => GameManager.Instance.StartGame();
+    public void OnRestartButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
