@@ -3,6 +3,13 @@ Project Details
 Unity Version: 6000.0.58f1 LTS
 Recommended Resolution: 1920x1080 (Portrait)
 
+How to Play
+-----------
+1. Go to GameScene. Run and Press Start to begin.
+2. Tap or click on targets to shoot.
+3. Manage your ammo — game ends when ammo is out and all bullets are spent.
+4. Hit special targets to gain bonus ammo.
+
 Architectural Overview
 ----------------------
 The project is built around decoupled communication and design patterns.
@@ -78,14 +85,6 @@ TargetSpawner.cs
   - Ammo-aware spawning (prioritizes special targets when ammo is low).
   - Increases speed of moving targets based on kill count.
 
-Key Features
-------------
-- Object Pooling for smooth performance.
-- Event-driven decoupled communication.
-- Unified cross-platform input handling.
-- Extendable target types without touching core logic.
-- Dynamic difficulty scaling.
-
 Folder Structure
 ----------------
 Assets/
@@ -114,9 +113,13 @@ Assets/
                 ├── TargetPool.cs
                 └── TargetSpawner.cs
 
-How to Play
------------
-1. Press Start to begin.
-2. Tap or click on targets to shoot.
-3. Manage your ammo — game ends when ammo is out and all bullets are spent.
-4. Hit special targets to gain bonus ammo.
+Key Features
+------------
+- Object Pooling for smooth performance.
+- Event-driven decoupled communication.
+- Unified cross-platform input handling.
+- Extendable target types without touching core logic.
+- Dynamic difficulty scaling.
+
+
+
